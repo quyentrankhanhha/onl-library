@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
 import { BadRequestError } from '../helpers/apiError'
-import Book from '../models/Book'
-import BookService from '../services/book'
+import Author from '../models/Author'
+import AuthorService from '../services/author'
 
-// GET /books
-export const getAllBooks = async (
+// GET /authors
+export const getAllAuthors = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.getAllBookServices())
+    res.json(await AuthorService.findAllAuthorServices())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -20,14 +20,14 @@ export const getAllBooks = async (
   }
 }
 
-// GET /books/:bookId
-export const findBookById = async (
+// GET /authors/:authorId
+export const findAuthorById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.findBookByIdServices(req.params.bookId))
+    res.json(await AuthorService.findAuthorByIdServices(req.params.authorId))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -37,41 +37,18 @@ export const findBookById = async (
   }
 }
 
-// POST /books
-export const createBook = async (
+// POST /authors
+export const createAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const {
-      isbn,
-      title,
-      description,
-      publisher,
-      publishedDate,
-      author,
-      imgUri,
-      category,
-      status,
-      loanId,
-    } = req.body
+    const { firstName, lastName, bio, books } = req.body
 
-    const book = new Book({
-      isbn,
-      title,
-      description,
-      publisher,
-      publishedDate,
-      author,
-      imgUri,
-      category,
-      status,
-      loanId,
-    })
-
-    await BookService.createBookServices(book)
-    res.json(book)
+    const author = new Author({ firstName, lastName, bio, books })
+    await AuthorService.createAuthorServices(author)
+    res.json(author)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -81,17 +58,20 @@ export const createBook = async (
   }
 }
 
-// PUT /books/:bookId
-export const updateBook = async (
+// PUT /authors/:authorId
+export const updateAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const update = req.body
-    const bookId = req.params.bookId
-    const updatedBook = await BookService.updateBookServices(bookId, update)
-    res.json(updatedBook)
+    const authorId = req.params.authorId
+    const updatedAuthor = await AuthorService.updateAuthorServices(
+      authorId,
+      update
+    )
+    res.json(updatedAuthor)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -101,14 +81,14 @@ export const updateBook = async (
   }
 }
 
-// DELETE /books/:bookId
-export const deleteBook = async (
+// DELETE /authors/:authorId
+export const deleteAuthor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await BookService.deleteBookServices(req.params.bookId)
+    await AuthorService.deleteAuthorServices(req.params.authorId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

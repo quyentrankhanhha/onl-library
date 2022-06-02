@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
 import { BadRequestError } from '../helpers/apiError'
-import Book from '../models/Book'
-import BookService from '../services/book'
+import Loan from '../models/Loan'
+import LoanService from '../services/loan'
 
-// GET /books
-export const getAllBooks = async (
+// GET /loans
+export const getAllLoans = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.getAllBookServices())
+    res.json(await LoanService.getAllLoanServices())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -20,14 +20,14 @@ export const getAllBooks = async (
   }
 }
 
-// GET /books/:bookId
-export const findBookById = async (
+// GET /loans/:loanId
+export const findLoanById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json(await BookService.findBookByIdServices(req.params.bookId))
+    res.json(await LoanService.findLoanByIdServices(req.params.loanId))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -37,41 +37,18 @@ export const findBookById = async (
   }
 }
 
-// POST /books
-export const createBook = async (
+// POST /loans
+export const createLoan = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const {
-      isbn,
-      title,
-      description,
-      publisher,
-      publishedDate,
-      author,
-      imgUri,
-      category,
-      status,
-      loanId,
-    } = req.body
+    const { bookId, userId, loanDate, returnDate } = req.body
 
-    const book = new Book({
-      isbn,
-      title,
-      description,
-      publisher,
-      publishedDate,
-      author,
-      imgUri,
-      category,
-      status,
-      loanId,
-    })
-
-    await BookService.createBookServices(book)
-    res.json(book)
+    const loan = new Loan({ bookId, userId, loanDate, returnDate })
+    await LoanService.createLoanServices(loan)
+    res.json(loan)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -81,17 +58,17 @@ export const createBook = async (
   }
 }
 
-// PUT /books/:bookId
-export const updateBook = async (
+// PUT /loans/:loanId
+export const updateLoan = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const update = req.body
-    const bookId = req.params.bookId
-    const updatedBook = await BookService.updateBookServices(bookId, update)
-    res.json(updatedBook)
+    const loanId = req.params.loanId
+    const updatedLoan = await LoanService.updateLoanServices(loanId, update)
+    res.json(updatedLoan)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -101,14 +78,14 @@ export const updateBook = async (
   }
 }
 
-// DELETE /books/:bookId
-export const deleteBook = async (
+// DELETE /loans/:loanId
+export const deleteLoan = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await BookService.deleteBookServices(req.params.bookId)
+    await LoanService.deleteLoanServices(req.params.loanId)
     res.status(204).end()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

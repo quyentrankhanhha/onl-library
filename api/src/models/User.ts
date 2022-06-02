@@ -4,6 +4,7 @@ export type UserDocument = Document & {
   firstName: string
   lastName: string
   email: string
+  password: string
   isAdmin: boolean
   createdDate: Date
 }
@@ -22,9 +23,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   isAdmin: {
     type: Boolean,
     required: true,
+    default: false,
   },
   createdDate: Date,
 })
