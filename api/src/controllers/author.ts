@@ -10,7 +10,7 @@ export const getAllAuthors = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await AuthorService.findAllAuthorServices())
+    res.json(await AuthorService.getAllAuthorServices())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))

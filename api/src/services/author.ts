@@ -1,7 +1,7 @@
 import { NotFoundError } from '../helpers/apiError'
 import Author, { AuthorDocument } from '../models/Author'
 
-const findAllAuthorServices = async (): Promise<AuthorDocument[]> => {
+const getAllAuthorServices = async (): Promise<AuthorDocument[]> => {
   return Author.find().sort({ firstName: 1 })
 }
 
@@ -48,7 +48,7 @@ const deleteAuthorServices = async (
 }
 
 export default {
-  findAllAuthorServices,
+  getAllAuthorServices,
   findAuthorByIdServices,
   createAuthorServices,
   updateAuthorServices,
