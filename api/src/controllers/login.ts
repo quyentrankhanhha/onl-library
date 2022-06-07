@@ -3,11 +3,10 @@ import jwt from 'jsonwebtoken'
 import { UserDocument } from '../models/User'
 import { JWT_SECRET } from '../util/secrets'
 
-export const loginGoogle = async (req: Request, res: Response) => {
+export const loginGoogle = (req: Request, res: Response) => {
   const user = req.user as UserDocument
-
   const token = jwt.sign(
-    { email: user.email, role: user.isAdmin },
+    { email: user.email, isAdmin: user.isAdmin },
     JWT_SECRET,
     {
       expiresIn: '1h',

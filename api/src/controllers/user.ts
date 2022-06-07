@@ -20,20 +20,12 @@ export const getAllUsers = async (
 }
 
 // GET /user/:userId
-export const findUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const findUserById = async (req: Request, res: Response) => {
   res.json(await UserService.findUserByIdServices(req.params.userId))
 }
 
 // PUT /users/:userId
-export const updateUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updateUser = async (req: Request, res: Response) => {
   const update = req.body
   const userId = req.params.userId
   const updatedUser = await UserService.updateUserServices(userId, update)
@@ -41,11 +33,7 @@ export const updateUser = async (
 }
 
 // DELETE /users/:userId
-export const deleteUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteUser = async (req: Request, res: Response) => {
   await UserService.deleteUserServices(req.params.userId)
   res.status(204).end()
 }

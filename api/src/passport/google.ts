@@ -3,8 +3,8 @@ import User, { UserDocument } from '../models/User'
 import UserService from '../services/user'
 
 const isAdmin = (domain: string) => {
-  if (domain !== 'integrify.io') return false
-  return true
+  if (domain === 'ha.quyen@integrify.io') return true
+  return false
 }
 
 const loginWithGoogle = () => {
@@ -12,9 +12,9 @@ const loginWithGoogle = () => {
     async (
       parsedToken: {
         payload: {
+          given_name: string
+          family_name: string
           email: string
-          firstName: string
-          lastName: string
           hd: string
         }
       },
@@ -23,21 +23,19 @@ const loginWithGoogle = () => {
     ) => {
       try {
         let user = await UserService.findUserByEmail(parsedToken.payload.email)
-
         if (!user) {
           user = {
-            firstName: parsedToken.payload.firstName,
-            lastName: parsedToken.payload.lastName,
+            firstName: parsedToken.payload.given_name,
+            lastName: parsedToken.payload.family_name,
             email: parsedToken.payload.email,
-            password: '',
-            isAdmin: isAdmin(parsedToken.payload.hd) ? true : false,
+            isAdmin: isAdmin(parsedToken.payload.email),
           } as UserDocument
-
           const newUser = new User(user)
           await UserService.createUserServices(newUser)
         }
         done(null, user)
       } catch (error) {
+        console.log(error)
         done(error)
       }
     }

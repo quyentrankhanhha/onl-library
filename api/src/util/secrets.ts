@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
-
 import logger from './logger'
 
 if (fs.existsSync('.env')) {
@@ -20,7 +19,6 @@ export const MONGODB_URI = process.env['MONGODB_URI'] as string
 // export const MONGODB_URI = (
 //   prod ? process.env['MONGODB_URI'] : process.env['MONGODB_URI_LOCAL']
 // ) as string
-
 if (!JWT_SECRET) {
   logger.error('No client secret. Set JWT_SECRET environment variable.')
   process.exit(1)
