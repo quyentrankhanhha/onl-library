@@ -1,8 +1,6 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import axios from 'axios'
 import React, { useState } from 'react'
-import './App.css'
-import logo from './logo.svg'
 
 function App() {
   const [token, setToken] = useState('')
@@ -41,9 +39,8 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
+    <div>
+      <header>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
