@@ -4,9 +4,13 @@ export type UserDocument = Document & {
   firstName: string
   lastName: string
   email: string
-  password: string
-  isAdmin: boolean
   createdDate: Date
+  role: Role
+}
+
+enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
 }
 
 const userSchema = new mongoose.Schema({
@@ -23,10 +27,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  isAdmin: {
-    type: Boolean,
+  role: {
+    type: String,
+    enum: Role,
     required: true,
-    default: false,
+    default: Role.USER,
   },
   createdDate: Date,
 })

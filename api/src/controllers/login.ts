@@ -5,12 +5,8 @@ import { JWT_SECRET } from '../util/secrets'
 
 export const loginGoogle = (req: Request, res: Response) => {
   const user = req.user as UserDocument
-  const token = jwt.sign(
-    { email: user.email, isAdmin: user.isAdmin },
-    JWT_SECRET,
-    {
-      expiresIn: '1h',
-    }
-  )
+  const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, {
+    expiresIn: '1h',
+  })
   res.json({ token })
 }

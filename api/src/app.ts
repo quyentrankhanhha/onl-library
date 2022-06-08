@@ -11,6 +11,7 @@ import bookRouter from './routers/book'
 import loanRouter from './routers/loan'
 import loginRouter from './routers/login'
 import userRouter from './routers/user'
+import verifyRouter from './routers/verifyToken'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -32,6 +33,7 @@ app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/loans', loanRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/login', loginRouter)
+app.use('verify-token', verifyRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

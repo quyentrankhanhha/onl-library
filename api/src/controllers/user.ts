@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { BadRequestError } from '../helpers/apiError'
+import User from '../models/User'
 import UserService from '../services/user'
 
 // GET /users
@@ -19,9 +20,30 @@ export const getAllUsers = async (
   }
 }
 
-// GET /user/:userId
+// GET /users/:userId
 export const findUserById = async (req: Request, res: Response) => {
   res.json(await UserService.findUserByIdServices(req.params.userId))
+}
+
+// POST /users
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { firstName, lastName, email, role, createdDate } = req.body
+
+    const user = new User({ firstName, lastName, email, role, createdDate })
+    await UserService.createUserServices(user)
+    res.json(user)
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
 }
 
 // PUT /users/:userId

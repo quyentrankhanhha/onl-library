@@ -28,7 +28,7 @@ const loginWithGoogle = () => {
             firstName: parsedToken.payload.given_name,
             lastName: parsedToken.payload.family_name,
             email: parsedToken.payload.email,
-            isAdmin: isAdmin(parsedToken.payload.email),
+            role: isAdmin(parsedToken.payload.email) ? 'ADMIN' : 'USER',
           } as UserDocument
           const newUser = new User(user)
           await UserService.createUserServices(newUser)
