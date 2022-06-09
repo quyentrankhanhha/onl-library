@@ -1,6 +1,7 @@
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import HomePage from './pages/HomePage'
 
 function App() {
   const [token, setToken] = useState('')
@@ -39,22 +40,11 @@ function App() {
   }
 
   return (
-    <div>
-      <header>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <GoogleOAuthProvider clientId={clientId}>
-          <GoogleLogin onSuccess={handleSucess} />
-        </GoogleOAuthProvider>
-        <button
-          style={{ width: '200px', height: '80px', marginTop: '1rem' }}
-          onClick={handleGetUsers}
-        >
-          GET USERS
-        </button>
-      </header>
-    </div>
+    <Switch>
+      <Route path={'/'}>
+        <HomePage />
+      </Route>
+    </Switch>
   )
 }
 
