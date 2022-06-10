@@ -1,6 +1,12 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import Footer from './components/Footer/Footer'
+import Navbar from './components/Navbar/Navbar'
+import AuthorListPage from './pages/AuthorListPage'
+import AuthorPage from './pages/AuthorPage'
+import BookListPage from './pages/BookListPage'
+import BookPage from './pages/BookPage'
 import HomePage from './pages/HomePage'
 
 function App() {
@@ -40,11 +46,27 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route path={'/'}>
-        <HomePage />
-      </Route>
-    </Switch>
+    <>
+      <Navbar />
+      <Switch>
+        <Route path={'/'}>
+          <HomePage />
+        </Route>
+        <Route path={'/book/:bookId'}>
+          <BookPage />
+        </Route>
+        <Route path={'/book'}>
+          <BookListPage />
+        </Route>
+        <Route path={'/author/:authorId'}>
+          <AuthorPage />
+        </Route>
+        <Route path={'/author'}>
+          <AuthorListPage />
+        </Route>
+      </Switch>
+      <Footer />
+    </>
   )
 }
 
