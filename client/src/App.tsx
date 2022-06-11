@@ -3,6 +3,10 @@ import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Footer from './components/Footer/Footer'
 import Navbar from './components/Navbar/Navbar'
+import AdminAuthorPage from './pages/AdminAuthorPage'
+import AdminBookPage from './pages/AdminBookPage'
+import AdminPage from './pages/AdminPage'
+import AdminUserPage from './pages/AdminUserPage'
 import AuthorListPage from './pages/AuthorListPage'
 import AuthorPage from './pages/AuthorPage'
 import BookListPage from './pages/BookListPage'
@@ -44,28 +48,53 @@ function App() {
       console.log('error:', error.response.data)
     }
   }
+  const admin = true
 
   return (
     <>
-      <Navbar />
-      <Switch>
-        <Route path={'/'}>
-          <HomePage />
-        </Route>
-        <Route path={'/book/:bookId'}>
-          <BookPage />
-        </Route>
-        <Route path={'/book'}>
-          <BookListPage />
-        </Route>
-        <Route path={'/author/:authorId'}>
-          <AuthorPage />
-        </Route>
-        <Route path={'/author'}>
-          <AuthorListPage />
-        </Route>
-      </Switch>
-      <Footer />
+      {admin ? (
+        <>
+          <Switch>
+            <Route path={'/admin'}>
+              <AdminPage />
+            </Route>
+            <Route path={'/admin/book'}>
+              <AdminBookPage />
+            </Route>
+            <Route path={'/admin/author'}>
+              <AdminAuthorPage />
+            </Route>
+            <Route path={'/admin/user'}>
+              <AdminUserPage />
+            </Route>
+          </Switch>
+        </>
+      ) : (
+        <>
+          <Navbar />
+          <Switch>
+            <Route path={'/admin'}>
+              <AdminPage />
+            </Route>
+            <Route path={'/book/:bookId'}>
+              <BookPage />
+            </Route>
+            <Route path={'/book'}>
+              <BookListPage />
+            </Route>
+            <Route path={'/author/:authorId'}>
+              <AuthorPage />
+            </Route>
+            <Route path={'/author'}>
+              <AuthorListPage />
+            </Route>
+            <Route path={'/'}>
+              <HomePage />
+            </Route>
+          </Switch>
+          <Footer />
+        </>
+      )}
     </>
   )
 }

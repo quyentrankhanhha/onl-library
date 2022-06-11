@@ -5,33 +5,36 @@ import BookFrame from '../components/BookFrame/BookFrame'
 const HomePage = () => {
   return (
     <>
-      <section className='h-[40rem] w-full'>
-        <div className='inline-block align-middle'>
-          <img
-            className='absolute left-0 top-[160px]'
-            src={require('../assets/left-landing-page.png')}
-            alt='left landing img'
-          />
+      <section className='h-full w-full my-10'>
+        <div className='flex justify-between'>
+          <div className='inline-block align-middle'>
+            <img
+              className='left-0 top-[160px]'
+              src={require('../assets/left-landing-page.png')}
+              alt='left landing img'
+            />
+          </div>
+          <div className='inline-block align-middle'>
+            <img
+              className='right-0 top-0'
+              src={require('../assets/right-landing-page.png')}
+              alt='right landing img'
+            />
+          </div>
         </div>
-        <div className='inline-block align-middle'>
-          <img
-            className='absolute right-0 top-0'
-            src={require('../assets/right-landing-page.png')}
-            alt='right landing img'
-          />
-        </div>
-        <div className='absolute top-64 ml-6'>
-          <h2 className='text-light-navy text-7xl'>
+
+        <div className='absolute top-32 md:top-64 ml-6 pr-2'>
+          <h2 className='text-light-navy text-7xl -z-10'>
             Library <b>Online</b>
           </h2>
-          <p className='w-1/2 text-grey text-l leading-7 mt-6'>
+          <p className='w-full md:w-1/2 text-grey text-l leading-7 mt-6'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
             quibusdam quae ducimus nihil dolor perferendis aliquid eveniet eius,
             labore, tempora iusto excepturi dignissimos, doloribus quaerat
             beatae exercitationem dolorum officiis consequatur.
           </p>
 
-          <div className='mt-6 w-1/2'>
+          <div className='mt-6 w-full md:w-1/2'>
             <form role='search' className='flex justify-center'>
               <input
                 className='bg-light-white text-s py-2 pl-2 leading-10 w-5/6'
