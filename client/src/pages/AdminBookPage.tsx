@@ -1,12 +1,15 @@
 import React from 'react'
-import AdminTable from '../components/AdminTable/AdminTable'
+import { AdminBookTable } from '../components/AdminBookTable/AdminBookTable'
 import Navbar from '../components/Navbar/Navbar'
 
 const AdminBookPage = () => {
   return (
     <>
       <Navbar />
-      <AdminTable />
+      <div className='mx-8 my-8'>
+        <h2 className='font-bold text-4xl'>Book List</h2>
+      </div>
+      <AdminBookTable />
     </>
   )
 }

@@ -55,9 +55,6 @@ function App() {
       {admin ? (
         <>
           <Switch>
-            <Route path={'/admin'}>
-              <AdminPage />
-            </Route>
             <Route path={'/admin/book'}>
               <AdminBookPage />
             </Route>
@@ -66,6 +63,9 @@ function App() {
             </Route>
             <Route path={'/admin/user'}>
               <AdminUserPage />
+            </Route>
+            <Route path={'/admin'}>
+              <AdminPage />
             </Route>
           </Switch>
         </>
