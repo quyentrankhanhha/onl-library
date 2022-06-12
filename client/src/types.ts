@@ -25,7 +25,7 @@ export type GetAuthorsRequestAction = {
 
 export type GetAuthorsSuccessAction = {
   type: typeof GET_AUTHORS_SUCCESS
-  payload: BookType[]
+  payload: AuthorType[]
 }
 
 export type GetAthorsFailureAction = {
@@ -72,7 +72,7 @@ export type AuthorType = {
 export type AuthorListType = {
   isLoading: boolean
   error: string
-  bookList: AuthorType[]
+  authorList: AuthorType[]
 }
 
 export type AppState = {

@@ -25,7 +25,7 @@ const HomePage = () => {
 
         <div className='absolute top-32 md:top-64 ml-6 pr-2'>
           <h2 className='text-light-navy text-7xl -z-10'>
-            Library <b>Online</b>
+            <b>Open</b> Library
           </h2>
           <p className='w-full md:w-1/2 text-grey text-l leading-7 mt-6'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores

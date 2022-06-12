@@ -179,7 +179,7 @@ const Navbar = () => {
     <div className='w-full h-full z-10 drop-shadow-lg'>
       <div className='px-2 flex justify-between items-center w-full h-full'>
         <div className='flex items-center'>
-          <h1 className='block text-3xl font-bold mr-4 sm:text-4xl'>
+          <h1 className='block text-3xl text-light-navy font-bold mr-4 sm:text-4xl'>
             Lib<b>On.</b>
           </h1>
           {isAdmin ? adminMenuList : userMenuList}
