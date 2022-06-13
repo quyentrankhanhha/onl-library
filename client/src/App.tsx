@@ -52,7 +52,7 @@ function App() {
 
   return (
     <>
-      {!admin ? (
+      {admin ? (
         <>
           <Switch>
             <Route path={'/admin/book'}>

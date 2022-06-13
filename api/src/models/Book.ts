@@ -33,7 +33,7 @@ const bookSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'Author',
   },
-  imgUri: String,
+  imgUrl: String,
   category: [
     {
       type: [String],

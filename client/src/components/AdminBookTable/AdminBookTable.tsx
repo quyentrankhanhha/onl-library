@@ -1,8 +1,14 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { bookTable } from '../../constant/table'
+import { BookType } from '../../types'
+import AdminBookRow from './AdminBookRow'
 
-export const AdminBookTable = () => {
+interface Props {
+  bookInfo: BookType[]
+}
+
+export const AdminBookTable: React.FC<Props> = ({ bookInfo }) => {
   return (
     <div className='overflow-x-auto shadow-md'>
       <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
@@ -16,28 +22,15 @@ export const AdminBookTable = () => {
             <th scope='col' className='px-6 py-3'>
               <span className='sr-only'>Edit</span>
             </th>
+            <th scope='col' className='px-6 py-3'>
+              <span className='sr-only'>Delete</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-white whitespace-nowrap'
-            >
-              Apple MacBook Pro 17"
-            </th>
-            <td className='px-6 py-4 text-white'>Sliver</td>
-            <td className='px-6 py-4 text-white'>Laptop</td>
-            <td className='px-6 py-4 text-white'>$2999</td>
-            <td className='px-6 py-4 text-right'>
-              {/* <a
-                  href='#'
-                  className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
-                >
-                  Edit
-                </a> */}
-            </td>
-          </tr>
+          {bookInfo.map((info) => (
+            <AdminBookRow key={uuidv4()} info={info} />
+          ))}
         </tbody>
       </table>
     </div>
