@@ -48,12 +48,18 @@ export type BookType = {
   title: string
   description: string
   publisher: string
-  publishedDate: Date
-  author: object
+  publishedDate: string
+  author: {
+    _id: string
+    firstName: string
+    lastName: string
+  }
   imgUrl?: string
   category: string[]
-  status: string
-  loanId: string
+  status: boolean
+  loanId?: string
+  __v?: number
+  _id?: string
 }
 
 export type BookListType = {
@@ -66,7 +72,8 @@ export type AuthorType = {
   firstName: string
   lastName: string
   bio: string
-  books: string[]
+  books: BookType[]
+  _id: string
 }
 
 export type AuthorListType = {
@@ -77,6 +84,7 @@ export type AuthorListType = {
 
 export type AppState = {
   books: BookListType
+  authors: AuthorListType
 }
 
 export type StatType = {

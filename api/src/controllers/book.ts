@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { BadRequestError } from '../helpers/apiError'
 import Book from '../models/Book'
+import AuthorService from '../services/author'
 import BookService from '../services/book'
 
 // GET /books
@@ -71,6 +72,7 @@ export const createBook = async (
     })
 
     await BookService.createBookServices(book)
+    await AuthorService.addAuthorToBookServices(author, book._id)
     res.json(book)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -90,7 +92,11 @@ export const updateBook = async (
   try {
     const update = req.body
     const bookId = req.params.bookId
+    const oldBook = await BookService.findBookByIdServices(bookId)
+    AuthorService.removeAuthorFromBookServices(oldBook.author, bookId)
     const updatedBook = await BookService.updateBookServices(bookId, update)
+    await AuthorService.addAuthorToBookServices(update.author, bookId)
+
     res.json(updatedBook)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

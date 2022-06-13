@@ -34,7 +34,9 @@ export const fetchBooks = () => {
     dispatch(getBooksRequest())
     axios
       .get(bookUrl)
-      .then((response) => dispatch(getBooksSuccess(response.data.bookList)))
+      .then((response) => {
+        dispatch(getBooksSuccess(response.data))
+      })
       .catch((error) => dispatch(getBooksFailure(error.message)))
   }
 }

@@ -9,6 +9,11 @@ const initState: AppState = {
     error: '',
     bookList: [],
   },
+  authors: {
+    isLoading: false,
+    error: '',
+    authorList: [],
+  },
 }
 
 export default function makeStore(initialState = initState) {

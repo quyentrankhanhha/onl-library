@@ -1,7 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import moment from 'moment'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { bookUrl } from '../constant/api'
+import { BookType } from '../types'
 
 const BookPage = () => {
+  const { bookId } = useParams<{ bookId: string }>()
+  const [bookInfo, setBookInfo] = useState<BookType>()
+  const url = bookUrl + '/' + bookId
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((response) => {
+        setBookInfo(response.data)
+      })
+      .catch((error) => console.log(error))
+  }, [])
+  const authorName =
+    bookInfo?.author?.firstName + ' ' + bookInfo?.author?.lastName
+
   return (
     <section className='w-full h-full py-16'>
       <div className='top-64 ml-6'>
@@ -11,28 +30,30 @@ const BookPage = () => {
           className='w-1/3 h-full object-center object-cover '
         />
         <h1 className='text-3xl text-light-navy font-bold mr-4 sm:text-4xl py-4'>
-          <b>Hungry For Love</b>
+          <b>{bookInfo?.title}</b>
         </h1>
         <div>
           <p>
-            <b>ISBN:</b> asd123123fsd
+            <b>ISBN:</b> {bookInfo?.isbn}
           </p>
 
           <p>
-            <b>Author:</b> <Link to='/author/:authorId'>Evan William</Link>
+            <b>Author:</b>
+            <Link to={`/author/${bookInfo?.author._id}`}> {authorName}</Link>
           </p>
           <p>
-            <b>Publisher:</b> asd123123fsd
+            <b>Publisher:</b> {bookInfo?.publisher}
           </p>
           <p>
-            <b>Published Date:</b> asd123123fsd
+            <b>Published Date: </b>
+            {moment(bookInfo?.publishedDate).format('DD-MM-YYYY')}
           </p>
           <p>
             <b>Description: </b>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-            dolorum ratione in eum dolore iure officia nam molestiae deserunt
-            rem. Reiciendis adipisci praesentium rerum tempore, veniam minus
-            itaque molestias neque?
+            {bookInfo?.description}
+          </p>
+          <p>
+            <b>Status: </b> {bookInfo?.status ? 'Available' : 'Not Available'}
           </p>
         </div>
       </div>

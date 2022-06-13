@@ -2,11 +2,11 @@ import { NotFoundError } from '../helpers/apiError'
 import Book, { BookDocument } from './../models/Book'
 
 const getAllBookServices = async (): Promise<BookDocument[]> => {
-  return Book.find().sort({ name: 1, publishedDate: -1 })
+  return Book.find().populate('author').sort({ name: 1, publishedDate: -1 })
 }
 
 const findBookByIdServices = async (bookId: string): Promise<BookDocument> => {
-  const foundBook = await Book.findById(bookId)
+  const foundBook = await Book.findById(bookId).populate('author')
   if (!foundBook) {
     throw new NotFoundError(`Book ${bookId} not found`)
   }

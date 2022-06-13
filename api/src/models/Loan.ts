@@ -20,6 +20,7 @@ const loanSchema = new mongoose.Schema({
   },
   loanDate: {
     type: Date,
+    default: Date.now,
   },
   returnDate: {
     type: Date,

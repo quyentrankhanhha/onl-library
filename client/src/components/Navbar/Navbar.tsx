@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false)
   const handleClick = () => setToggleNav(!toggleNav)
-  const isAdmin = true
+  const isAdmin = false
 
   const userMenuList = (
     <ul className='hidden md:flex'>

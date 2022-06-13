@@ -1,5 +1,4 @@
 import express from 'express'
-import verifyAuth from '../middlewares/verifyAuth'
 import {
   createAuthor,
   deleteAuthor,
@@ -13,7 +12,7 @@ const router = express.Router()
 router.get('/', getAllAuthors)
 router.get('/:authorId', findAuthorById)
 router.put('/:authorId', updateAuthor)
-router.post('/', verifyAuth, createAuthor)
+router.post('/', createAuthor)
 router.delete('/:authorId', deleteAuthor)
 
 export default router

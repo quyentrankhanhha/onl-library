@@ -31,11 +31,11 @@ function getAuthorsFailure(error: string): AuthorsActions {
 }
 
 export const fetchAuthors = () => {
-  return (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(getAuthorsRequest())
-    axios
+    await axios
       .get(authorUrl)
-      .then((response) => dispatch(getAuthorsSuccess(response.data.authorList)))
+      .then((response) => dispatch(getAuthorsSuccess(response.data)))
       .catch((error) => dispatch(getAuthorsFailure(error.message)))
   }
 }

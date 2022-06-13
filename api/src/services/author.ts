@@ -1,3 +1,4 @@
+import { Types } from 'mongoose'
 import { NotFoundError } from '../helpers/apiError'
 import Author, { AuthorDocument } from '../models/Author'
 
@@ -8,7 +9,7 @@ const getAllAuthorServices = async (): Promise<AuthorDocument[]> => {
 const findAuthorByIdServices = async (
   authorId: string
 ): Promise<AuthorDocument> => {
-  const foundAuthor = await Author.findById(authorId)
+  const foundAuthor = await Author.findById(authorId).populate('books')
   if (!foundAuthor) {
     throw new NotFoundError(`Author ${authorId} not found`)
   }
@@ -47,10 +48,45 @@ const deleteAuthorServices = async (
   return foundBook
 }
 
+const addAuthorToBookServices = async (
+  authorId: string,
+  bookId: string
+): Promise<AuthorDocument | null> => {
+  const foundAuthor = await Author.findByIdAndUpdate(
+    authorId,
+    { $push: { books: bookId } },
+    { new: true }
+  )
+
+  if (!foundAuthor) {
+    throw new NotFoundError(`Author ${authorId} not found`)
+  }
+
+  return foundAuthor
+}
+
+const removeAuthorFromBookServices = async (
+  authorId: string | Types.ObjectId,
+  bookId: string
+): Promise<AuthorDocument | null> => {
+  const foundAuthor = await Author.findByIdAndUpdate(
+    authorId,
+    { $pull: { books: bookId } },
+    { new: true }
+  )
+  if (!foundAuthor) {
+    throw new NotFoundError(`Author ${authorId} not found`)
+  }
+
+  return foundAuthor
+}
+
 export default {
   getAllAuthorServices,
   findAuthorByIdServices,
   createAuthorServices,
   updateAuthorServices,
   deleteAuthorServices,
+  addAuthorToBookServices,
+  removeAuthorFromBookServices,
 }
