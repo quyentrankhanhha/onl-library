@@ -8,6 +8,7 @@ import {
   GET_BOOKS_REQUEST,
   GET_BOOKS_SUCCESS,
 } from '../../types'
+import { DELETE_BOOK } from './../../types'
 
 function getBooksRequest(): BooksActions {
   return {
@@ -38,5 +39,24 @@ export const fetchBooks = () => {
         dispatch(getBooksSuccess(response.data))
       })
       .catch((error) => dispatch(getBooksFailure(error.message)))
+  }
+}
+
+function deleteBook(id: string): BooksActions {
+  return {
+    type: DELETE_BOOK,
+    payload: id,
+  }
+}
+
+export const fetchDeleteBook = (id: string) => {
+  return async (dispatch: Dispatch) => {
+    await axios
+      .delete(`${bookUrl}/${id}`)
+      .then((response) => {
+        dispatch(deleteBook(id))
+        console.log(response)
+      })
+      .catch((error) => dispatch(getBooksFailure(error)))
   }
 }

@@ -7,6 +7,7 @@ import { AppState } from '../types'
 const AdminAuthorPage = () => {
   const dispatch = useDispatch()
   const authors = useSelector((state: AppState) => state.authors)
+
   useEffect(() => {
     dispatch<any>(async () => {
       dispatch<any>(fetchAuthors())

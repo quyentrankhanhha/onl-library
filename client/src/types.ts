@@ -1,6 +1,7 @@
 export const GET_BOOKS_REQUEST = 'GET_BOOKS_REQUEST'
 export const GET_BOOKS_SUCCESS = 'GET_BOOKS_SUCCESS'
 export const GET_BOOKS_FAILURE = 'GET_BOOKS_FAILURE'
+export const DELETE_BOOK = 'DELETE_BOOK'
 
 export const GET_AUTHORS_REQUEST = 'GET_AUTHORS_REQUEST'
 export const GET_AUTHORS_SUCCESS = 'GET_AUTHORS_SUCCESS'
@@ -23,6 +24,11 @@ export type GetBooksSuccessAction = {
 
 export type GetBooksFailureAction = {
   type: typeof GET_BOOKS_FAILURE
+  payload: string
+}
+
+export type DeleteBook = {
+  type: typeof DELETE_BOOK
   payload: string
 }
 
@@ -77,6 +83,7 @@ export type BooksActions =
   | GetBooksRequestAction
   | GetBooksSuccessAction
   | GetBooksFailureAction
+  | DeleteBook
 
 export type UserActions =
   | SignInRequestAction

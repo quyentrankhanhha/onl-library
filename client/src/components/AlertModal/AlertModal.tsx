@@ -1,25 +1,17 @@
 import { XIcon } from '@heroicons/react/outline'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { fetchDeleteAuthor } from '../../redux/actions'
+import React from 'react'
 
 interface Props {
-  id: string
+  handleDelete: () => void
+  handleAlert: () => void
+  showModal: boolean
 }
 
-const AlertModal: React.FC<Props> = ({ id }) => {
-  const [showModal, setShowModal] = useState(false)
-  const dispatch = useDispatch<any>()
-
-  const handleAlert = () => {
-    setShowModal(!showModal)
-  }
-
-  const handleDeleteAuthor = () => {
-    dispatch(fetchDeleteAuthor(id))
-    setShowModal(!showModal)
-  }
-
+const AlertModal: React.FC<Props> = ({
+  handleDelete,
+  handleAlert,
+  showModal,
+}) => {
   return (
     <>
       <button
@@ -43,9 +35,7 @@ const AlertModal: React.FC<Props> = ({ id }) => {
                     className='bg-transparent border-0 float-right'
                     onClick={handleAlert}
                   >
-                    <button>
-                      <XIcon className='w-6 inline' />
-                    </button>
+                    <XIcon className='w-6 inline' />
                   </button>
                 </div>
                 <div className='relative p-6 flex-auto'>
@@ -62,7 +52,7 @@ const AlertModal: React.FC<Props> = ({ id }) => {
                   <button
                     className='text-white bg-light-blue hover:bg-navy font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1'
                     type='button'
-                    onClick={handleDeleteAuthor}
+                    onClick={handleDelete}
                   >
                     Submit
                   </button>

@@ -1,12 +1,26 @@
 import moment from 'moment'
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchDeleteBook } from '../../redux/actions'
 import { BookType } from '../../types'
+import AlertModal from '../AlertModal/AlertModal'
 
 interface Props {
   info: BookType
 }
 
 const AdminBookRow: React.FC<Props> = ({ info }) => {
+  const [showModal, setShowModal] = useState(false)
+  const dispatch = useDispatch<any>()
+  const handleAlert = () => {
+    setShowModal(!showModal)
+  }
+
+  const handleDeleteBook = () => {
+    dispatch(fetchDeleteBook(info._id))
+    setShowModal(!showModal)
+  }
+
   let authorName
   if (info?.author?.firstName && info?.author?.lastName)
     authorName = info?.author.firstName + ' ' + info?.author.lastName
@@ -32,15 +46,15 @@ const AdminBookRow: React.FC<Props> = ({ info }) => {
         {info.status ? 'Available' : 'Not Available'}
       </td>
       <td className='px-6 py-4 text-white'>{info.loanId}</td>
-      <td className='px-6 py-4 text-right'>
-        <td className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-          Edit
-        </td>
+      <td className='px-6 py-4 text-right font-medium text-blue-600 dark:text-blue-500 hover:underline'>
+        Edit
       </td>
-      <td className='px-6 py-4 text-right'>
-        <td className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-          Delete
-        </td>
+      <td className='px-6 py-4 text-right font-medium text-blue-600 dark:text-blue-500 hover:underline'>
+        <AlertModal
+          handleDelete={handleDeleteBook}
+          handleAlert={handleAlert}
+          showModal={showModal}
+        />
       </td>
     </tr>
   )

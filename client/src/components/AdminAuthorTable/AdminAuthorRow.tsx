@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchDeleteAuthor } from '../../redux/actions'
 import { AuthorType } from '../../types'
 import AlertModal from '../AlertModal/AlertModal'
 
@@ -7,6 +9,16 @@ interface Props {
 }
 
 const AdminAuthorRow: React.FC<Props> = ({ info }) => {
+  const [showModal, setShowModal] = useState(false)
+  const dispatch = useDispatch<any>()
+  const handleAlert = () => {
+    setShowModal(!showModal)
+  }
+
+  const handleDeleteAuthor = () => {
+    dispatch(fetchDeleteAuthor(info._id))
+    setShowModal(!showModal)
+  }
   return (
     <>
       <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
@@ -20,7 +32,11 @@ const AdminAuthorRow: React.FC<Props> = ({ info }) => {
         </td>
 
         <td className='px-6 py-4 text-right font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-          <AlertModal id={info._id} />
+          <AlertModal
+            handleDelete={handleDeleteAuthor}
+            handleAlert={handleAlert}
+            showModal={showModal}
+          />
         </td>
       </tr>
     </>

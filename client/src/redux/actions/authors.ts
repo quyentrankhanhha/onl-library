@@ -53,7 +53,6 @@ export const fetchDeleteAuthor = (id: string) => {
       .delete(`${authorUrl}/${id}`)
       .then((response) => {
         dispatch(deleteAuthor(id))
-        console.log(response)
       })
       .catch((error) => dispatch(getAuthorsFailure(error)))
   }

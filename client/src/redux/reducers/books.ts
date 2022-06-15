@@ -17,6 +17,19 @@ const books = (state = initialState, action: BooksActions): BookListType => {
     case 'GET_BOOKS_FAILURE':
       return { ...state, isLoading: false, error: action.payload }
 
+    case 'DELETE_BOOK':
+      const index = state.bookList.findIndex(
+        (found) => found._id === action.payload
+      )
+      if (index >= 0) {
+        state.bookList.splice(index, 1)
+        return {
+          ...state,
+          bookList: [...state.bookList],
+        }
+      }
+      return state
+
     default:
       return state
   }
