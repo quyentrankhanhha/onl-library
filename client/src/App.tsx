@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Footer from './components/Footer/Footer'
 import Navbar from './components/Navbar/Navbar'
 import Protected from './components/Protected/Protected'
+import ScrollUpButton from './components/ScrollUpButton/ScrollUpButton'
 import AdminAuthorPage from './pages/AdminAuthorPage'
 import AdminBookPage from './pages/AdminBookPage'
 import AdminPage from './pages/AdminPage'
@@ -58,6 +59,7 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
+      <ScrollUpButton />
       <Footer />
     </>
   )
