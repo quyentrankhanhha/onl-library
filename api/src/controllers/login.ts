@@ -8,5 +8,5 @@ export const loginGoogle = (req: Request, res: Response) => {
   const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, {
     expiresIn: '1h',
   })
-  res.json({ token })
+  res.json({ token, user })
 }

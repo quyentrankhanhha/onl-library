@@ -3,7 +3,7 @@ import { StatType } from '../../types'
 
 const Stat: React.FC<StatType> = ({ title, number }) => {
   return (
-    <div className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8'>
+    <div className='align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8 -z-10'>
       <div className='bg-white p-5'>
         <div className='sm:flex sm:items-start'>
           <div className='text-center sm:mt-0 sm:ml-2 sm:text-left'>

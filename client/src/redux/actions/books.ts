@@ -30,9 +30,9 @@ function getBooksFailure(error: string): BooksActions {
 }
 
 export const fetchBooks = () => {
-  return (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(getBooksRequest())
-    axios
+    await axios
       .get(bookUrl)
       .then((response) => {
         dispatch(getBooksSuccess(response.data))

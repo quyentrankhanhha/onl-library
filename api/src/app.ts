@@ -33,7 +33,7 @@ app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/loans', loanRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/login', loginRouter)
-app.use('verify-token', verifyRouter)
+app.use('/verify-token', verifyRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

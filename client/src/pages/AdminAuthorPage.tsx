@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AdminAuthorTable from '../components/AdminAuthorTable/AdminAuthorTable'
-import Navbar from '../components/Navbar/Navbar'
 import { fetchAuthors } from '../redux/actions'
 import { AppState } from '../types'
 
@@ -16,7 +15,6 @@ const AdminAuthorPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className='mx-8 my-8'>
         <h2 className='font-bold text-4xl'>Author List</h2>
       </div>
