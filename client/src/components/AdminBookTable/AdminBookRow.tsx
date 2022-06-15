@@ -7,7 +7,13 @@ interface Props {
 }
 
 const AdminBookRow: React.FC<Props> = ({ info }) => {
-  const authorName = info?.author?.firstName + ' ' + info?.author?.lastName
+  let authorName
+  if (info?.author?.firstName && info?.author?.lastName)
+    authorName = info?.author.firstName + ' ' + info?.author.lastName
+  else if (info?.author?.firstName) authorName = info.author.firstName
+  else if (info?.author?.lastName) authorName = info.author.lastName
+  else authorName = 'N/A'
+
   return (
     <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
       <th scope='row' className='px-6 py-4 text-white'>

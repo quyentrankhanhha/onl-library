@@ -8,7 +8,7 @@ const Footer = () => {
           Lib<b>On.</b>
         </h1>
         <p className='text-center text-white my-4'>
-          Copyright 2022. Made by <b>Ha Quyen</b>
+          Copyright © 2022. Made by <b>Ha Quyen</b>
         </p>
       </div>
     </footer>

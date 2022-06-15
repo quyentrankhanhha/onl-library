@@ -4,11 +4,11 @@ import { authorUrl } from '../../constant/api'
 import {
   AuthorsActions,
   AuthorType,
+  DELETE_AUTHOR,
   GET_AUTHORS_FAILURE,
   GET_AUTHORS_REQUEST,
   GET_AUTHORS_SUCCESS,
 } from '../../types'
-import {} from './../../types'
 
 function getAuthorsRequest(): AuthorsActions {
   return {
@@ -37,5 +37,24 @@ export const fetchAuthors = () => {
       .get(authorUrl)
       .then((response) => dispatch(getAuthorsSuccess(response.data)))
       .catch((error) => dispatch(getAuthorsFailure(error.message)))
+  }
+}
+
+function deleteAuthor(id: string): AuthorsActions {
+  return {
+    type: DELETE_AUTHOR,
+    payload: id,
+  }
+}
+
+export const fetchDeleteAuthor = (id: string) => {
+  return async (dispatch: Dispatch) => {
+    await axios
+      .delete(`${authorUrl}/${id}`)
+      .then((response) => {
+        dispatch(deleteAuthor(id))
+        console.log(response)
+      })
+      .catch((error) => dispatch(getAuthorsFailure(error)))
   }
 }

@@ -10,10 +10,18 @@ interface Props {
 }
 
 const BookFrame: React.FC<Props> = ({ book, authorName, authorId }) => {
+  let name
+  if (authorName) name = authorName
+  else if (book?.author?.firstName && book?.author?.lastName)
+    name = book.author.firstName + ' ' + book.author.lastName
+  else if (book?.author?.firstName) name = book.author.firstName
+  else if (book?.author?.lastName) name = book.author.lastName
+  else name = 'N/A'
+
   return (
     <div className='group'>
       <div className='w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8 mb-4'>
-        <Link to={`/book/${book._id}`}>
+        <Link to={`/book/${book?._id}`}>
           <img
             src='https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'
             alt='Tall slender porcelain bottle with natural clay textured body and cork stopper.'
@@ -21,13 +29,11 @@ const BookFrame: React.FC<Props> = ({ book, authorName, authorId }) => {
           />
         </Link>
       </div>
-      <Link to={`/book/${book._id}`}>
+      <Link to={`/book/${book?._id}`}>
         <p className='mt-4 text-lg font-bold text-light-navy'>{book.title}</p>
       </Link>
-      <Link to={`/author/${book.author._id || authorId}`}>
-        <p className='mt-1'>
-          {authorName || `${book?.author?.firstName} ${book?.author?.lastName}`}
-        </p>
+      <Link to={`/author/${book?.author?._id || authorId || ''}`}>
+        <p className='mt-1'>{name}</p>
       </Link>
       <p className={`mt-1 ${book.status ? `text-light-blue` : `text-red-500`}`}>
         {book.status ? 'Available' : 'Not Available'}

@@ -20,6 +20,19 @@ const authors = (
     case 'GET_AUTHORS_FAILURE':
       return { ...state, isLoading: false, error: action.payload }
 
+    case 'DELETE_AUTHOR':
+      const index = state.authorList.findIndex(
+        (found) => found._id === action.payload
+      )
+      if (index >= 0) {
+        state.authorList.splice(index, 1)
+        return {
+          ...state,
+          authorList: [...state.authorList],
+        }
+      }
+      return state
+
     default:
       return state
   }
