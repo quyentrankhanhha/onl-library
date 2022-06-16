@@ -18,8 +18,12 @@ const BookPage = () => {
       })
       .catch((error) => console.log(error))
   }, [])
-  const authorName =
-    bookInfo?.author?.firstName + ' ' + bookInfo?.author?.lastName
+  let authorName
+  if (bookInfo?.author?.firstName && bookInfo?.author?.lastName)
+    authorName = bookInfo?.author.firstName + ' ' + bookInfo?.author.lastName
+  else if (bookInfo?.author?.firstName) authorName = bookInfo.author.firstName
+  else if (bookInfo?.author?.lastName) authorName = bookInfo.author.lastName
+  else authorName = 'N/A'
 
   return (
     <section className='w-full h-full py-16'>
@@ -39,7 +43,9 @@ const BookPage = () => {
 
           <p>
             <b>Author:</b>
-            <Link to={`/author/${bookInfo?.author._id}`}> {authorName}</Link>
+            <Link to={`/author/${bookInfo?.author?._id || ''}`}>
+              {authorName}
+            </Link>
           </p>
           <p>
             <b>Publisher:</b> {bookInfo?.publisher}
